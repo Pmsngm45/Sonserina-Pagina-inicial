@@ -78,7 +78,7 @@ function verificarResultado() {
     }
   });
 
-  // Se alguma pergunta ficou sem resposta, rola até ela e não mostra resultado
+  // Se faltar resposta, rolar para a primeira não respondida
   if (primeiraNaoRespondida !== null) {
     document.querySelectorAll(".pergunta")[primeiraNaoRespondida]
       .scrollIntoView({ behavior: "smooth", block: "center" });
@@ -103,3 +103,4 @@ function verificarResultado() {
 
 carregarQuiz();
 submitBtn.addEventListener("click", verificarResultado);
+
