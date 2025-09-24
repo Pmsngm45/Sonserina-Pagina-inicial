@@ -43,7 +43,6 @@ function carregarQuiz() {
       label.appendChild(input);
       label.appendChild(document.createTextNode(opcao));
       div.appendChild(label);
-      div.appendChild(document.createElement("br"));
     });
 
     const feedback = document.createElement("p");
@@ -59,7 +58,7 @@ function verificarResultado() {
   let primeiraNaoRespondida = null;
 
   perguntas.forEach((q, index) => {
-    const resposta = document.querySelector(`input[name=pergunta${index}]:checked`);
+    const resposta = document.querySelector(`input[name="pergunta${index}"]:checked`);
     const feedback = quizContainer.querySelectorAll(".feedback")[index];
 
     if (!resposta) {
@@ -78,7 +77,7 @@ function verificarResultado() {
     }
   });
 
-  // Se faltar resposta, rolar para a primeira não respondida
+  // Se faltar resposta, rolar até a primeira não respondida
   if (primeiraNaoRespondida !== null) {
     document.querySelectorAll(".pergunta")[primeiraNaoRespondida]
       .scrollIntoView({ behavior: "smooth", block: "center" });
@@ -86,7 +85,7 @@ function verificarResultado() {
     return;
   }
 
-  // Determinar casa
+  // Determinar a casa final
   let casa = "";
   if (pontos === perguntas.length) {
     casa = "Sonserina 🐍";
@@ -103,4 +102,5 @@ function verificarResultado() {
 
 carregarQuiz();
 submitBtn.addEventListener("click", verificarResultado);
+
 
