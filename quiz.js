@@ -1,3 +1,4 @@
+<script>
 const perguntas = [
   {
     pergunta: "Quem fundou a Sonserina?",
@@ -43,6 +44,7 @@ function carregarQuiz() {
       label.appendChild(input);
       label.appendChild(document.createTextNode(opcao));
       div.appendChild(label);
+      div.appendChild(document.createElement("br"));
     });
 
     const feedback = document.createElement("p");
@@ -55,27 +57,37 @@ function carregarQuiz() {
 
 function verificarResultado() {
   let pontos = 0;
+  let primeiraNaoRespondida = null;
 
   perguntas.forEach((q, index) => {
     const resposta = document.querySelector(`input[name=pergunta${index}]:checked`);
     const feedback = quizContainer.querySelectorAll(".feedback")[index];
 
-    if (resposta) {
+    if (!resposta) {
+      if (primeiraNaoRespondida === null) primeiraNaoRespondida = index;
+      feedback.textContent = "⚠ Você deve responder esta pergunta.";
+      feedback.className = "feedback errado";
+    } else {
       if (parseInt(resposta.value) === q.correta) {
         pontos++;
-        feedback.textContent = `✔ Você acertou! "${q.opcoes[q.correta]}" é a resposta correta.`;
+        feedback.textContent = `✔ Correto! "${q.opcoes[q.correta]}" é a resposta.`;
         feedback.className = "feedback correto";
       } else {
-        feedback.textContent = `❌ Você errou. A resposta correta é "${q.opcoes[q.correta]}".`;
+        feedback.textContent = `❌ Errado. A resposta correta é "${q.opcoes[q.correta]}".`;
         feedback.className = "feedback errado";
       }
-    } else {
-      feedback.textContent = "⚠ Você não respondeu esta pergunta.";
-      feedback.className = "feedback errado";
     }
   });
 
-  // Definir casa final
+  // Se alguma pergunta ficou sem resposta, rola até ela e não mostra resultado
+  if (primeiraNaoRespondida !== null) {
+    document.querySelectorAll(".pergunta")[primeiraNaoRespondida]
+      .scrollIntoView({ behavior: "smooth", block: "center" });
+    resultadoDiv.textContent = "⚠ Responda todas as perguntas para descobrir sua casa!";
+    return;
+  }
+
+  // Determinar casa
   let casa = "";
   if (pontos === perguntas.length) {
     casa = "Sonserina 🐍";
@@ -92,3 +104,5 @@ function verificarResultado() {
 
 carregarQuiz();
 submitBtn.addEventListener("click", verificarResultado);
+</script>
+
