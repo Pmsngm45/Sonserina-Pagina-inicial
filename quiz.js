@@ -1,4 +1,3 @@
-<script>
 const perguntas = [
   {
     pergunta: "Quem fundou a Sonserina?",
@@ -104,5 +103,3 @@ function verificarResultado() {
 
 carregarQuiz();
 submitBtn.addEventListener("click", verificarResultado);
-</script>
-
