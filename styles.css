@@ -1,3 +1,4 @@
+/* ===== ESTILOS GERAIS ===== */
 body {
   margin: 0;
   font-family: 'Georgia', serif;
@@ -88,3 +89,9 @@ button:hover {
 .errado {
   color: #e74c3c;
 }
+
+.feedback {
+  margin-top: 0.5rem;
+}
+
+
